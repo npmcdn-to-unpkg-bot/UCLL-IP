@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -37,61 +36,68 @@
     </section>
 
     <section id="cards">
-        <article class="card">
-            <header>
-                <h2><a href="#">Resto Ribs WiFi</a></h2>
+        <c:forEach var="network" items="${networks}">
+            <article class="card">
+                <header>
+                    <h2><a href="#">${network.ssid}</a></h2>
 
-                <p class="lock"><i class="fa fa-lock"></i></p>
-            </header>
-            <section>
-                <h3>Address</h3>
-                <a class="edit" href="#">&#xf044;</a>
+                    <p class="lock">
+                        <c:choose>
+                            <c:when test="${network.type == 'OPEN'}">
+                                <i class="fa fa-unlock-alt"></i>
+                            </c:when>
+                            <c:when test="${network.type == 'PROTECTED'}">
+                                <i class="fa fa-lock"></i>
+                            </c:when>
+                        </c:choose>
+                    </p>
+                </header>
+                <section>
+                    <h3>Address</h3>
+                    <a class="edit" href="#">&#xf044;</a>
 
-                <p class="address">
-                    <em>Resto Ribs</em><br>
-                    Parijsstraat 26<br>
-                    3000 Leuven
-                </p>
-            </section>
-            <section class="passwords">
-                <h3>Password</h3>
-                <a class="edit" href="#">&#xf044;</a>
-                <ul>
-                    <li>Pass1234
-                        <form action="#" method="post">
-                            <input type="submit" name="upvote" value="&#xf164;">
-                            <span>-123</span>
-                            <input type="submit" name="downvote" value="&#xf165;">
-                        </form>
-                    </li>
-                    <li>SuperSecret69
-                        <form action="#" method="post">
-                            <input type="submit" name="upvote" value="&#xf164;">
-                            <span>+69</span>
-                            <input type="submit" name="downvote" value="&#xf165;">
-                        </form>
-                    </li>
-                    <li>DankPass420BlAzEit
-                        <form action="#" method="post">
-                            <input type="submit" name="upvote" value="&#xf164;">
-                            <span>+420</span>
-                            <input type="submit" name="downvote" value="&#xf165;">
-                        </form>
-                    </li>
-                </ul>
-            </section>
-            <section>
-                <h3>Comments</h3>
+                    <p class="address">
+                        <c:if test="${not empty network.location.name}">
+                            <em>${network.location.name}</em><br>
+                        </c:if>
+                            ${network.location.address}
+                        <c:if test="${not empty network.location.crossStreet}">
+                            (${network.location.crossStreet})
+                        </c:if>
+                        <br>
+                            ${network.location.zip} ${network.location.city}
+                    </p>
+                </section>
+                <c:if test="${network.type == 'PROTECTED'}">
+                <section class="passwords">
+                    <h3>Password</h3>
+                    <a class="edit" href="#">&#xf044;</a>
+                    <ul>
+                        <c:forEach var="password" items="${network.passwords}">
+                        <li>${password.password}
+                            <form action="#" method="post">
+                                <input type="submit" name="upvote" value="&#xf164;">
+                                <span>${password.score}</span>
+                                <input type="submit" name="downvote" value="&#xf165;">
+                            </form>
+                        </li>
+                        </c:forEach>
+                    </ul>
+                </section>
+                </c:if>
+                <section>
+                    <h3>Comments</h3>
 
-                <p>
-                    <a href="#">0 comments on this WiFi</a>
-                </p>
-            </section>
+                    <p>
+                        <a href="#">${network.comments.size()} comment${network.comments.size() == 1 ? '' : 's'} on this WiFi</a>
+                    </p>
+                </section>
 
-        </article>
+            </article>
+        </c:forEach>
     </section>
 
-    <section id="field">
+    <!--section id="field">
         <form action="" method="post">
             <h4>WiFi details</h4>
 
@@ -138,7 +144,7 @@
                 <input type="submit" value="Save">
             </div>
         </form>
-    </section>
+    </section> -->
 </main>
 <footer>
     <a href="#">Nederlands</a>
