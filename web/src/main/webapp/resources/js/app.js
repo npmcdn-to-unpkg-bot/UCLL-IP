@@ -1,16 +1,9 @@
 window.onload = init;
 
-
-
-
 var cityName;
 var topBar;
 
-
-
 function init(){
-
-
     topBar = document.getElementById("top");
     cityName = document.getElementById("txt_cityName");
     adjustWidthOfCityName();
@@ -29,7 +22,7 @@ function calcCityNameWidth() {
 }
 
 function adjustWidthOfCityName() {
-    cityName.style.width = calcCityNameWidth() + "px";
+    cityName.style.width = calcCityNameWidth()+3 + "px";
     console.log(calcCityNameWidth() + "px");
 }
 
@@ -47,3 +40,13 @@ function loadMap(){
         title : 'Hello World!'
     } );
 }
+
+
+
+
+
+// best fix ever
+
+setTimeout(function(){
+   // window.location.reload();
+}, 58765);
