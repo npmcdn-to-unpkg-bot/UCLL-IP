@@ -10,7 +10,7 @@
     Loading the map...
 </section>
 
-<section id="cards" data-masonry='{ "itemSelector": "article" }'>
+<section id="cards" data-masonry='{ "itemSelector": "article", "isOriginLeft": false }'>
     <c:forEach var="network" items="${networks}">
         <article data-lat="${network.location.lat}" data-lon="${network.location.lon}">
             <header>
@@ -49,7 +49,7 @@
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
                             <li>${password.password}
-                                <form action="/vote/password/${password.id}" method="post">
+                                <form action="/vote/${network.id}/password/${password.id}" method="post">
                                     <input type="hidden" name="city" value="${network.location.city}">
                                     <input type="submit" name="upvote" value="&#xf164;">
                                     <span><c:if test="${password.score > 0}">+</c:if>${password.score}</span>
@@ -61,7 +61,7 @@
                 </section>
             </c:if>
             <footer>
-                <a title="Add comment" href="#">
+                <a title="Add comment" href="<c:url value="/comments/${network.id}"/>">
                     <c:choose>
                         <c:when test="${network.comments.size() == 1}">
                             <s:message code="lbl.CommentOnThisNetwork"/>
