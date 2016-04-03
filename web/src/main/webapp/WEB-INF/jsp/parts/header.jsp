@@ -24,12 +24,12 @@
 <body>
 <header>
     <section id="top">
-        <h1><s:message code="lbl.Networks"/></h1>
+        <h1><a href="<c:url value="/"/>"><s:message code="lbl.Networks"/></a></h1>
         <c:if test="${param.page == 'index'}">
             <a href="<c:url value="/add"/>"><i class="fa fa-plus-circle"></i> Add network</a>
             <form action="" method="get">
                 <label for="txt_cityName">near the city of</label>
-                <input type="text" name="city" value="Leuven" id="txt_cityName" autocomplete="off">
+                <input type="text" name="city" value="${param.city}" id="txt_cityName" autocomplete="off">
                 <input type="submit" class="fa" value="&#xf040;">
             </form>
         </c:if>

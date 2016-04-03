@@ -28,7 +28,7 @@
             </header>
             <section>
                 <h3>Address</h3>
-                <a class="edit" href="#">&#xf044;</a>
+                <a class="edit" href="<c:url value="/edit/${network.id}"/>">&#xf044;</a>
 
                 <p class="address">
                     <c:if test="${not empty network.location.name}">
@@ -45,13 +45,14 @@
             <c:if test="${network.type == 'PROTECTED'}">
                 <section class="passwords">
                     <h3>Password</h3>
-                    <a class="edit" href="#">&#xf044;</a>
+                    <a class="edit" href="<c:url value="/edit/${network.id}/password"/>">&#xf044;</a>
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
                             <li>${password.password}
-                                <form action="#" method="post">
+                                <form action="/vote/password/${password.id}" method="post">
+                                    <input type="hidden" name="city" value="${network.location.city}">
                                     <input type="submit" name="upvote" value="&#xf164;">
-                                    <span>${password.score}</span>
+                                    <span><c:if test="${password.score > 0}">+</c:if>${password.score}</span>
                                     <input type="submit" name="downvote" value="&#xf165;">
                                 </form>
                             </li>
@@ -60,7 +61,17 @@
                 </section>
             </c:if>
             <footer>
-                <a title="Add comment" href="#">0 comments on this network <i class="fa fa-pencil"></i></a>
+                <a title="Add comment" href="#">
+                    <c:choose>
+                        <c:when test="${network.comments.size() == 1}">
+                            <s:message code="lbl.CommentOnThisNetwork"/>
+                        </c:when>
+                        <c:otherwise>
+                            <s:message code="lbl.CommentsOnThisNetwork" arguments="${network.comments.size()}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <i class="fa fa-pencil"></i>
+                </a>
             </footer>
         </article>
     </c:forEach>
