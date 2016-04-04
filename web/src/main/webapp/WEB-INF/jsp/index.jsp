@@ -50,7 +50,7 @@
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
                             <li>${password.password}
-                                <form action="/vote/${network.id}/password/${password.id}" method="post">
+                                <form action="<c:url value="/vote/${network.id}/password/${password.id}"/>" method="post">
                                     <input type="hidden" name="city" value="${network.location.city}">
                                     <input type="submit" name="upvote" value="&#xf164;">
                                     <span><c:if test="${password.score > 0}">+</c:if>${password.score}</span>
