@@ -2,12 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<s:message code="var.Index" var="varIndex"/>
 <jsp:include page="parts/header.jsp">
-    <jsp:param name="page" value="index"/>
+    <jsp:param name="page" value="${varIndex}"/>
 </jsp:include>
 
 <section id="map">
-    Loading the map...
+    <s:message code="lbl.LoadingMap"/>
 </section>
 
 <section id="cards" data-masonry='{ "itemSelector": "article", "isOriginLeft": false }'>
@@ -27,7 +28,7 @@
                 </p>
             </header>
             <section>
-                <h3>Address</h3>
+                <h3><s:message code="lbl.Address"/></h3>
                 <a class="edit" href="<c:url value="/edit/${network.id}"/>">&#xf044;</a>
 
                 <p class="address">
@@ -44,7 +45,7 @@
             </section>
             <c:if test="${network.type == 'PROTECTED'}">
                 <section class="passwords">
-                    <h3>Password</h3>
+                    <h3><s:message code="lbl.Password"/></h3>
                     <a class="edit" href="<c:url value="/edit/${network.id}/password"/>">&#xf044;</a>
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
@@ -61,7 +62,7 @@
                 </section>
             </c:if>
             <footer>
-                <a title="Add comment" href="<c:url value="/comments/${network.id}"/>">
+                <a title="<s:message code="lbl.LeaveComment"/>" href="<c:url value="/comments/${network.id}"/>">
                     <c:choose>
                         <c:when test="${network.comments.size() == 1}">
                             <s:message code="lbl.CommentOnThisNetwork"/>
