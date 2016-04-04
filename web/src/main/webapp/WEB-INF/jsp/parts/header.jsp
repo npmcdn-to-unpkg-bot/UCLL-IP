@@ -6,7 +6,7 @@
 <s:message code="var.EditNetwork" var="varEditNetwork"/>
 <html lang="<s:message code="var.Lang"/>">
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <title><s:message code="lbl.Networks"/><c:if test="${param.page != 'index'}"> &raquo; ${param.page}</c:if></title>
 
