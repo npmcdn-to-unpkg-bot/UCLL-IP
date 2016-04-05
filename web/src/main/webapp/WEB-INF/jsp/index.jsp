@@ -15,7 +15,7 @@
     <c:forEach var="network" items="${networks}">
         <article data-lat="${network.location.lat}" data-lon="${network.location.lon}">
             <header>
-                <h2>${network.ssid}</h2>
+                <h2><c:out value="${network.ssid}"/></h2>
                 <p>
                     <c:choose>
                         <c:when test="${network.type == 'OPEN'}">
@@ -33,14 +33,14 @@
 
                 <p class="address">
                     <c:if test="${not empty network.location.name}">
-                        <em>${network.location.name}</em><br>
+                        <em><c:out value="${network.location.name}"/></em><br>
                     </c:if>
                         ${network.location.address}
                     <c:if test="${not empty network.location.crossStreet}">
-                        (${network.location.crossStreet})
+                        (<c:out value="${network.location.crossStreet}"/>)
                     </c:if>
                     <br>
-                        ${network.location.zip} ${network.location.city}
+                    <c:out value="${network.location.zip} ${network.location.city}"/>
                 </p>
             </section>
             <c:if test="${network.type == 'PROTECTED'}">
@@ -49,8 +49,9 @@
                     <a class="edit" href="<c:url value="/edit/${network.id}/password"/>">&#xf044;</a>
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
-                            <li>${password.password}
-                                <form action="<c:url value="/vote/${network.id}/password/${password.id}"/>" method="post">
+                            <li><c:out value="${password.password}"/>
+                                <form action="<c:url value="/vote/${network.id}/password/${password.id}"/>"
+                                      method="post">
                                     <input type="hidden" name="city" value="${network.location.city}">
                                     <input type="submit" name="upvote" value="&#xf164;">
                                     <span><c:if test="${password.score > 0}">+</c:if>${password.score}</span>
