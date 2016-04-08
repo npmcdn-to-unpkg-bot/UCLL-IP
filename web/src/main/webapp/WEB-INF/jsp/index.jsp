@@ -49,10 +49,10 @@
                     <a class="edit" href="<c:url value="/edit/${network.id}/password"/>">&#xf044;</a>
                     <ul>
                         <c:forEach var="password" items="${network.passwords}">
-                            <li><c:out value="${password.password}"/>
+                            <li><span><c:out value="${password.password}"/></span>
                                 <form action="<c:url value="/vote/${network.id}/password/${password.id}"/>"
                                       method="post">
-                                    <input type="hidden" name="city" value="${network.location.city}">
+                                    <input type="hidden" name="city" value="<c:out value="${network.location.city}"/>">
                                     <input type="submit" name="upvote" value="&#xf164;">
                                     <span><c:if test="${password.score > 0}">+</c:if>${password.score}</span>
                                     <input type="submit" name="downvote" value="&#xf165;">

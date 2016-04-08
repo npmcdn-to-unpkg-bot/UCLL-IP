@@ -32,7 +32,8 @@
             <a href="<c:url value="/add"/>"><i class="fa fa-plus-circle"></i> <s:message code="lbl.AddNetwork"/></a>
             <form action="" method="get">
                 <label for="txt_cityName"><s:message code="lbl.Near"/></label>
-                <input type="text" name="city" value="<c:out value="${param.city}"/>" id="txt_cityName" autocomplete="off">
+                <input type="text" name="city" value="<c:out value="${param.city}"/>" id="txt_cityName"
+                       autocomplete="off" maxlength="20">
                 <input type="submit" class="fa" value="&#xf040;">
             </form>
         </c:if>
