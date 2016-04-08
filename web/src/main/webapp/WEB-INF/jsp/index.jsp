@@ -32,11 +32,11 @@
                 <a class="edit" href="<c:url value="/edit/${network.id}"/>">&#xf044;</a>
 
                 <p class="address">
-                    <c:if test="${not empty network.location.name}">
+                    <c:if test="${not empty network.location.name.trim()}">
                         <em><c:out value="${network.location.name}"/></em><br>
                     </c:if>
                     <c:out value="${network.location.address}"/>
-                    <c:if test="${not empty network.location.crossStreet}">
+                    <c:if test="${not empty network.location.crossStreet.trim()}">
                         (<c:out value="${network.location.crossStreet}"/>)
                     </c:if>
                     <br>
