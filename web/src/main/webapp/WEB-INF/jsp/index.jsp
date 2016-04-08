@@ -35,7 +35,7 @@
                     <c:if test="${not empty network.location.name}">
                         <em><c:out value="${network.location.name}"/></em><br>
                     </c:if>
-                        ${network.location.address}
+                    <c:out value="${network.location.address}"/>
                     <c:if test="${not empty network.location.crossStreet}">
                         (<c:out value="${network.location.crossStreet}"/>)
                     </c:if>
