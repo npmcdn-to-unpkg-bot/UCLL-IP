@@ -2,7 +2,7 @@ package be.krivi.ucll.ip.web.rest.converter;
 
 import be.krivi.ucll.ip.web.rest.model.Geocode;
 import be.krivi.ucll.ip.web.rest.model.Geometry;
-import be.krivi.ucll.ip.web.validation.NetworkTO;
+import be.krivi.ucll.ip.web.validation.NetworkDTO;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
@@ -22,17 +22,17 @@ public class Converter{
     // region Using Google Geocode Java API
     //****************************************************************
 
-    public static Pair<Double, Double> getLatLon( NetworkTO networkTO ){
+    public static Pair<Double, Double> getLatLon( NetworkDTO networkDTO ){
         GeoApiContext context = new GeoApiContext().setApiKey( API_KEY );
         GeocodingResult[] results;
 
         try{
             results = GeocodingApi.geocode(
                     context,
-                    networkTO.getLocationAddress() + ", " +
-                            networkTO.getLocationZip() +
-                            networkTO.getLocationCity() + ", " +
-                            networkTO.getLocationCountry()
+                    networkDTO.getLocationAddress() + ", " +
+                            networkDTO.getLocationZip() +
+                            networkDTO.getLocationCity() + ", " +
+                            networkDTO.getLocationCountry()
             ).await();
 
             return new Pair<>( results[0].geometry.location.lat, results[0].geometry.location.lng );
@@ -65,17 +65,17 @@ public class Converter{
     // region Using Google Geocode JSON API
     //****************************************************************
 
-    public static Pair<Double, Double> getLatLonJson( NetworkTO networkTO ){
+    public static Pair<Double, Double> getLatLonJson( NetworkDTO networkDTO ){
         RestTemplate restTemplate = new RestTemplate();
 
         try{
             // https://maps.googleapis.com/maps/api/geocode/json?address=Herestraat+49,+3000+Leuven,+Belgium&key=AIzaSyCE41BGnnoE6BvD8NNAKJ-OhrOhyb2rSnw
             Geocode geocode = restTemplate.getForObject(
                     "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                            networkTO.getLocationAddress() + ", " +
-                            networkTO.getLocationZip() +
-                            networkTO.getLocationCity() + ", " +
-                            networkTO.getLocationCountry() +
+                            networkDTO.getLocationAddress() + ", " +
+                            networkDTO.getLocationZip() +
+                            networkDTO.getLocationCity() + ", " +
+                            networkDTO.getLocationCountry() +
                             "&key=" + API_KEY,
                     Geocode.class
             );
@@ -109,24 +109,24 @@ public class Converter{
     // endregion
     //****************************************************************
 
-    public static String test( NetworkTO networkTO ){
+    public static String test( NetworkDTO networkDTO ){
         RestTemplate restTemplate = new RestTemplate();
 
         Geocode results = restTemplate.getForObject(
                 "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                        networkTO.getLocationAddress() + ", " +
-                        networkTO.getLocationZip() +
-                        networkTO.getLocationCity() + ", " +
-                        networkTO.getLocationCountry() +
+                        networkDTO.getLocationAddress() + ", " +
+                        networkDTO.getLocationZip() +
+                        networkDTO.getLocationCity() + ", " +
+                        networkDTO.getLocationCountry() +
                         "&key=" + API_KEY,
                 Geocode.class
         );
 
         return "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                networkTO.getLocationAddress() + ", " +
-                networkTO.getLocationZip() +
-                networkTO.getLocationCity() + ", " +
-                networkTO.getLocationCountry() +
+                networkDTO.getLocationAddress() + ", " +
+                networkDTO.getLocationZip() +
+                networkDTO.getLocationCity() + ", " +
+                networkDTO.getLocationCountry() +
                 "&key=" + API_KEY;
     }
 }
