@@ -51,17 +51,24 @@ var app;
                 url: 'http://193.191.187.14:10228/api/passwords/' + id,
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                transformRequest: function(obj) {
+                transformRequest: function (obj) {
                     var str = [];
-                    for(var p in obj)
+                    for (var p in obj)
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                     return str.join("&");
                 },
-                data: { action: action }
+                data: {action: action}
             })
-                .success(function (response) {
-                    alert( "voted " +id);
-                    console.log(response);
+                .success(function () {
+                    angular.forEach($scope.networks, function (network) {
+                        angular.forEach(network.passwords, function (password) {
+                            if( password.id == id )
+                                if(action === "upvote")
+                                    password.score++;
+                                else if(action === "downvote")
+                                    password.score--;
+                        })
+                    })
                 })
                 .error(function (response, status) {
                     alert('Error reaching API (' + status + ')\nCheck console for details.');
@@ -82,8 +89,6 @@ var app;
                 .success(function (data) {
                     $scope.network = data;
                     $scope.network.hasComments = ($scope.network.comments.length > 0);
-                    console.log($scope.network.comments.length);
-                    console.log($scope.network.hasComments);
                 })
                 .error(function (response, status) {
                     alert('Error reaching API (' + status + ')\nCheck console for details.');
