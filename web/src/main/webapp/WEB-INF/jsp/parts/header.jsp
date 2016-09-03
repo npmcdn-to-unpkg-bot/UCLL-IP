@@ -15,7 +15,7 @@
     <c:choose>
         <c:when test="${param.page == varIndex}">
             <script src="<c:url value="/resources/js/app.js"/>"></script>
-            <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+            <script src="https://unpkg.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE41BGnnoE6BvD8NNAKJ-OhrOhyb2rSnw&callback=init"></script>
         </c:when>
